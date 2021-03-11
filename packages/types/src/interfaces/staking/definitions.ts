@@ -54,7 +54,16 @@ const phragmen = {
   CompactScore: '(ValidatorIndex, OffchainAccuracy)',
   CompactScoreCompact: '(ValidatorIndexCompact, OffchainAccuracyCompact)',
   ElectionCompute: {
-    _enum: ['OnChain', 'Signed', 'Authority']
+    // in previous versions the last entry was "AuthorityId"
+    // (since no data attached, and it is via SCALE can rename)
+    _enum: ['OnChain', 'Signed', 'Unsigned']
+  },
+  ElectionPhase: {
+    _enum: {
+      Off: null,
+      Signed: null,
+      Unsigned: '(bool, BlockNumber)'
+    }
   },
   ElectionResult: {
     compute: 'ElectionCompute',
@@ -166,13 +175,6 @@ export default {
         Account: 'AccountId'
       }
     },
-    RewardDestinationTo257: {
-      _enum: [
-        'Staked',
-        'Stash',
-        'Controller'
-      ]
-    },
     RewardPoint: 'u32',
     SlashJournalEntry: {
       who: 'AccountId',
@@ -229,7 +231,7 @@ export default {
     },
     ValidatorIndex: 'u16',
     ValidatorIndexCompact: 'Compact<ValidatorIndex>',
-    ValidatorPrefs: 'ValidatorPrefsWithCommission',
+    ValidatorPrefs: 'ValidatorPrefsWithBlocked',
     ValidatorPrefsWithCommission: {
       commission: 'Compact<Perbill>'
     },

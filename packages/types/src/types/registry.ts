@@ -5,7 +5,7 @@ import type BN from 'bn.js';
 import type { Metadata } from '@polkadot/metadata';
 import type { Observable } from '@polkadot/x-rxjs';
 import type { ExtDef } from '../extrinsic/signedExtensions/types';
-import type { CodecHash } from '../interfaces/runtime';
+import type { CodecHash, Hash } from '../interfaces/runtime';
 import type { ChainProperties } from '../interfaces/system';
 import type { CallFunction } from './calls';
 import type { Codec, Constructor } from './codec';
@@ -98,7 +98,10 @@ export interface Registry {
   readonly chainSS58: number | undefined;
   readonly chainTokens: string[];
   readonly knownTypes: RegisteredTypes;
+  readonly unknownTypes: string[];
   readonly signedExtensions: string[];
+
+  createdAtHash?: Hash;
 
   findMetaCall (callIndex: Uint8Array): CallFunction;
   findMetaError (errorIndex: Uint8Array | { error: BN, index: BN }): RegistryError;

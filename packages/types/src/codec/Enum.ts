@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @polkadot/types authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { CodecHash } from '../interfaces';
+import type { CodecHash, Hash } from '../interfaces';
 import type { AnyJson, Codec, Constructor, InterfaceTypes, Registry } from '../types';
 
 import { assert, hexToU8a, isHex, isNumber, isObject, isString, isU8a, isUndefined, stringCamelCase, stringUpperFirst, u8aConcat, u8aToHex } from '@polkadot/util';
@@ -99,7 +99,7 @@ function createFromValue (registry: Registry, def: TypesDef, index = 0, value?: 
 }
 
 function decodeFromJSON (registry: Registry, def: TypesDef, key: string, value?: any): Decoded {
-  // JSON comes in the form of { "<type (lowercased)>": "<value for type>" }, here we
+  // JSON comes in the form of { "<type (camelCase)>": "<value for type>" }, here we
   // additionally force to lower to ensure forward compat
   const keys = Object.keys(def).map((k) => k.toLowerCase());
   const keyLower = key.toLowerCase();
@@ -165,6 +165,8 @@ function decodeEnum (registry: Registry, def: TypesDef, value?: any, index?: num
 //   - It should rather probably extend Enum instead of copying code
 export class Enum implements Codec {
   public readonly registry: Registry;
+
+  public createdAtHash?: Hash;
 
   readonly #def: TypesDef;
 
@@ -343,7 +345,7 @@ export class Enum implements Codec {
   public toJSON (): AnyJson {
     return this.#isBasic
       ? this.type
-      : { [this.type]: this.#raw.toJSON() };
+      : { [stringCamelCase(this.type)]: this.#raw.toJSON() };
   }
 
   /**

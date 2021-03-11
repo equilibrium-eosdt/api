@@ -61,7 +61,15 @@ export interface CompactScoreCompact extends ITuple<[ValidatorIndexCompact, Offc
 export interface ElectionCompute extends Enum {
   readonly isOnChain: boolean;
   readonly isSigned: boolean;
-  readonly isAuthority: boolean;
+  readonly isUnsigned: boolean;
+}
+
+/** @name ElectionPhase */
+export interface ElectionPhase extends Enum {
+  readonly isOff: boolean;
+  readonly isSigned: boolean;
+  readonly isUnsigned: boolean;
+  readonly asUnsigned: ITuple<[bool, BlockNumber]>;
 }
 
 /** @name ElectionResult */
@@ -187,13 +195,6 @@ export interface RewardDestination extends Enum {
   readonly asAccount: AccountId;
 }
 
-/** @name RewardDestinationTo257 */
-export interface RewardDestinationTo257 extends Enum {
-  readonly isStaked: boolean;
-  readonly isStash: boolean;
-  readonly isController: boolean;
-}
-
 /** @name RewardPoint */
 export interface RewardPoint extends u32 {}
 
@@ -307,7 +308,7 @@ export interface ValidatorIndex extends u16 {}
 export interface ValidatorIndexCompact extends Compact<ValidatorIndex> {}
 
 /** @name ValidatorPrefs */
-export interface ValidatorPrefs extends ValidatorPrefsWithCommission {}
+export interface ValidatorPrefs extends ValidatorPrefsWithBlocked {}
 
 /** @name ValidatorPrefsTo145 */
 export interface ValidatorPrefsTo145 extends Struct {

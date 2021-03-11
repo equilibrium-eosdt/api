@@ -6,7 +6,7 @@
 import type { OverrideVersionedType } from '@polkadot/types/types';
 
 const sharedTypes = {
-  AccountInfo: 'AccountInfoWithProviders',
+  AccountInfo: 'AccountInfoWithDualRefCount',
   Address: 'MultiAddress',
   Keys: 'SessionKeys6',
   LookupSource: 'MultiAddress',
@@ -16,7 +16,7 @@ const sharedTypes = {
       NonTransfer: 1,
       Governance: 2,
       Staking: 3,
-      // SudoBalances: 4,
+      UnusedSudoBalances: 4,
       IdentityJudgement: 5,
       CancelProxy: 6
     }
@@ -41,8 +41,7 @@ const versioned: OverrideVersionedType[] = [
       ...addrAccountIdTypes,
       CompactAssignments: 'CompactAssignmentsTo257',
       OpenTip: 'OpenTipTo225',
-      RefCount: 'RefCountTo259',
-      RewardDestination: 'RewardDestinationTo257'
+      RefCount: 'RefCountTo259'
     }
   },
   {
@@ -51,8 +50,7 @@ const versioned: OverrideVersionedType[] = [
       ...sharedTypes,
       ...addrAccountIdTypes,
       CompactAssignments: 'CompactAssignmentsTo257',
-      RefCount: 'RefCountTo259',
-      RewardDestination: 'RewardDestinationTo257'
+      RefCount: 'RefCountTo259'
     }
   },
   {

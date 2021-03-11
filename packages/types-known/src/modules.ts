@@ -17,6 +17,9 @@ const typesModules: Record<string, OverrideModuleType> = {
   contracts: {
     StorageKey: 'ContractStorageKey'
   },
+  electionProviderMultiPhase: {
+    Phase: 'ElectionPhase'
+  },
   ethereum: {
     Block: 'EthBlock',
     Header: 'EthHeader',
@@ -52,6 +55,9 @@ const typesModules: Record<string, OverrideModuleType> = {
     Announcement: 'ProxyAnnouncement'
   },
   scheduler: {
+    ValidatorIndex: 'ParaValidatorIndex'
+  },
+  shared: {
     ValidatorIndex: 'ParaValidatorIndex'
   },
   society: {
